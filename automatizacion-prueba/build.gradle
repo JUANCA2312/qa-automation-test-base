@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.2.16'
+}
+
+group = 'com.automatizacion'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // SERENITY CORE + JUNIT + SCREENPLAY
+    testImplementation 'net.serenity-bdd:serenity-core:4.2.16'
+    testImplementation 'net.serenity-bdd:serenity-junit:4.2.16'
+    testImplementation 'net.serenity-bdd:serenity-screenplay:4.2.16'
+    testImplementation 'net.serenity-bdd:serenity-screenplay-webdriver:4.2.16'
+
+    // CUCUMBER 7 + Serenity integration
+    testImplementation 'net.serenity-bdd:serenity-cucumber:4.2.16'
+    testImplementation 'io.cucumber:cucumber-java:7.18.1'
+    testImplementation 'io.cucumber:cucumber-junit:7.18.1'
+
+    // Selenium / WebDriver
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.27.0'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
+
+    // JUnit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+}
+
+test {
+    useJUnit() // 👈 esto ejecuta runners JUnit 4, como CucumberWithSerenity
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
